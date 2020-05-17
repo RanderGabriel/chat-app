@@ -3,4 +3,5 @@
     <string name="open_room">Open room</string>
     <string name="enter_room_code">Enter room code</string>
     <string name="this_is_the_chat_room">This is the chat room</string>
+    <string name="send">Send</string>
 </resources>
