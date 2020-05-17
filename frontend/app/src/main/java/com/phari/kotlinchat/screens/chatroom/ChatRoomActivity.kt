@@ -20,7 +20,7 @@ class ChatRoomActivity: AppCompatActivity() {
             onSendMessagePressed()
         }
         messagesContainer.adapter = mAdapter
-        messagesContainer.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
+        messagesContainer.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mAdapter.messages = mList
     }
 
