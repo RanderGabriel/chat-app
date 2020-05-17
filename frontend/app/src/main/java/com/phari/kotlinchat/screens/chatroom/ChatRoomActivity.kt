@@ -7,11 +7,11 @@ import com.phari.kotlinchat.R
 import com.phari.kotlinchat.model.ChatMessage
 import kotlinx.android.synthetic.main.activity_chat_room.*
 
-class ChatRoomActivity: AppCompatActivity() {
+class ChatRoomActivity: AppCompatActivity(), ChatRoomPresenter.View {
 
     private val mAdapter : MessageListAdapter = MessageListAdapter()
 
-    private val mList: ArrayList<ChatMessage> = ArrayList()
+    private val mPresenter: ChatRoomPresenter = ChatRoomPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,13 +21,17 @@ class ChatRoomActivity: AppCompatActivity() {
         }
         messagesContainer.adapter = mAdapter
         messagesContainer.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        mAdapter.messages = mList
+        mAdapter.messages = mPresenter.mList
     }
 
-    fun onSendMessagePressed() {
+    private fun onSendMessagePressed() {
         val text = chatMessageField.text.toString()
-        mList.add(ChatMessage(text, "Rander Oliveira"))
-        mAdapter.notifyItemInserted(mList.size)
+        mPresenter.sendMessage(text)
         chatMessageField.text.clear()
+    }
+
+
+    override fun onMessageAdded(index: Int) {
+        mAdapter.notifyItemInserted(index)
     }
 }
