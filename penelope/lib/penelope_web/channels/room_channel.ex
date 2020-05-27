@@ -15,9 +15,6 @@ defmodule PenelopeWeb.RoomChannel do
   # by sending replies to requests from the client
   @impl true
   def handle_in("ping", payload, socket) do
-    IO.puts "***********************TESTE***********************"
-    IO.puts "***********************TESTE***********************"
-    IO.puts "***********************TESTE***********************"
     {:reply, {:ok, payload}, socket}
   end
 
@@ -25,7 +22,8 @@ defmodule PenelopeWeb.RoomChannel do
   # broadcast to everyone in the current topic (room:lobby).
   @impl true
   def handle_in("shout", payload, socket) do
-    Penelope.Message.changeset(%Penelope.Message{}, payload) |> Penelope.Repo.insert
+    Penelope.Message.changeset(%Penelope.Message{}, payload)
+      |> Penelope.Repo.insert
     broadcast socket, "shout", payload
     {:noreply, socket}
   end
@@ -37,7 +35,7 @@ defmodule PenelopeWeb.RoomChannel do
       message: msg.message,
     }) end)
   {:noreply, socket} # :noreply
-end
+  end
 
   # Add authorization logic here as required.
   defp authorized?(_payload) do
